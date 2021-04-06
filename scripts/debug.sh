@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+export DIR_PWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export PYTHONPATH="$PYTHONPATH:$DIR_PWD"
+echo $PYTHONPATH
+
 ctx_mode=$1  # [video, sub, video_sub]
 vid_feat_type=$2  # [resnet, i3d, resnet_i3d]
 
@@ -11,7 +15,7 @@ eval_path=data/tvc_val_release.jsonl
 sub_meta_path=data/tvqa_preprocessed_subtitles.jsonl
 word2idx_path=cache/tvc_word2idx.json
 feature_root=data/tvc_feature_release
-results_root=baselines/multimodal_transformer/results
+results_root=baselines/multimodal_transformer/resultsc
 extra_args=()
 
 if [[ ${vid_feat_type} == "i3d" ]]; then
@@ -42,6 +46,7 @@ fi
 
 
 python baselines/multimodal_transformer/train.py \
+-debug \
 -ctx_mode ${ctx_mode} \
 -train_path ${train_path} \
 -eval_path ${eval_path} \
@@ -56,6 +61,5 @@ python baselines/multimodal_transformer/train.py \
 -res_root_dir ${results_root} \
 ${extra_args[@]} \
 ${@:3}
-
 
 

@@ -1,6 +1,6 @@
 import torch
 
-from decode_strategy import DecodeStrategy, length_penalty_builder
+from .decode_strategy import DecodeStrategy, length_penalty_builder
 
 import logging
 logger = logging.getLogger(__name__)
